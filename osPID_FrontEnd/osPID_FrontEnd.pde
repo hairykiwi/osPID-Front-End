@@ -1,8 +1,11 @@
 import java.nio.ByteBuffer;
 import processing.serial.*;
 import controlP5.*;
-import java.io.*;
+//import java.io.*;
 
+/***********************************************
+* Edited Source: This is for hairykiwi osPID Firmware v1.61g etc
+***********************************************/
 /***********************************************
  * User spcification section
  **********************************************/
@@ -15,14 +18,14 @@ float OutScaleMin = 0;      // the top and
 float OutScaleMax = 100;    // bottom trends
 
 
-int windowSpan = 300000;    // number of mS into the past you want to display
-int refreshRate = 100;      // how often you want the graph to be reDrawn;
+int windowSpan = 480000;    // number of mS into the past you want to display
+int refreshRate = 1000;      // how often you want the graph to be reDrawn;
 
 //float displayFactor = 1; //display Time as Milliseconds
 //float displayFactor = 1000; //display Time as Seconds
 float displayFactor = 60000; //display Time as Minutes
 
-String outputFileName = ""; // if you'd like to output data to 
+String outputFileName = "Run_0xxx.txt"; // if you'd like to output data to 
 // a file, specify the path here
 
 /***********************************************

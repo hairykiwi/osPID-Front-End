@@ -1,0 +1,9 @@
+Elg-025		//(X = N/A) PID = X | X | X | OP WINDOW = 5.0 Sec | ROHS profile for Elgento 9 litre 800W two-bar oven - from ASDA online UK
+5, 100, 140	//Step Output to 100% until crossing 140 degC
+5, 50, 190	//Step Output to 50% until crossing 190 degC - 
+5, 100, 217 //Step Output to 100% until crossing 217 degC - A 'place-marker' to enable a buzz as temperature rises through 217 degC - useful for monitoring time spent within critical heating phases, or as a flag in a data dump
+127, 0, 1	//buzz for 1 seconds
+5, 100, 245	//Step Output to 100% until crossing 245 degC - Approx 8 degC of overshoot needs to be anticipated, so stop heating at a point determined by experimentation.
+5, 0, 217   //Step Output to 0% until crossing 217 degC - A 'place-marker' to enable a buzz as temperature descends through 217 degC - useful for monitoring time spent within critical heating phases, or as a flag in a data dump
+127, 0, 1	//buzz for 1 seconds
+3, 0, 0		//Step Setpoint to 0 deg C - A backup safety feature

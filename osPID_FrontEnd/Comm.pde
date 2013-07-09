@@ -1,3 +1,7 @@
+/***********************************************
+* Edited Source: This is for hairykiwi osPID Firmware v1.61g etc
+***********************************************/
+
 String LastError="";
 void Connect()
 {
@@ -326,6 +330,7 @@ void serialEvent(Serial myPort)
     lastReceiptTime=millis();
     int curType = int(trim(s[2]));
     curProfStep = int(s[1]);
+    //float helper = float(trim(s[4]));
     ProfCmd.setVisible(false);
     ProfCmdStop.setVisible(true);
     String[] msg;
@@ -333,16 +338,27 @@ void serialEvent(Serial myPort)
     {
     case 1: //ramp
       msg = new String[]{
-        "Running Profile", "", "Step="+s[1]+", Ramping Setpoint", float(trim(s[3]))/1000+" Sec remaining"            };
+        "Running Profile", "", "Step: "+s[1]+", Ramping Setpoint", float(trim(s[3]))/1000+" Sec remaining"            };
       break;
     case 2: //wait
       float helper = float(trim(s[4]));
       msg = new String[]{
-        "Running Profile", "","Step="+s[1]+", Waiting","Distance Away= "+s[3],(helper<0? "Waiting for cross" :("Time in band= "+helper/1000+" Sec" ))            };
+        "Running Profile", "","Step: "+s[1]+", Waiting","Distance Away= "+s[3],(helper<0? "Waiting for cross" :("Time in band= "+helper/1000+" Sec" ))            };
       break;
     case 3: //step
       msg = new String[]{
-        "Running Profile", "","Step="+s[1]+", Stepped Setpoint"," Waiting for "+ float(trim(s[3]))/1000+" Sec"            };
+        "Running Profile", "","Step: "+s[1]+", Stepped Setpoint"," Waiting for "+ float(trim(s[3]))/1000+" Sec"            };
+      break;
+    case 4: //step-output-period
+      msg = new String[]{
+        "Running Profile", "","Step: "+s[1]+", Stepped Output", float(trim(s[3]))/1000+" Sec remaining"            };
+      break;
+    case 5: //step-output-until_crosing_temp
+ //     float helper_a = float(trim(s[4]));
+ //     TODO: 'Time in Band' value shows cumulative time since power on
+      msg = new String[]{
+        "Running Profile", "","Step: "+s[1]+", Stepped Output","Distance Away= "+s[3], "Waiting for cross" };
+      // TESTING - last array element above: "Distance Away=" +  "S2: "+ s[2]+" S3: " + s[3]+" S4: " + s[4]            };
       break;
 
     default:

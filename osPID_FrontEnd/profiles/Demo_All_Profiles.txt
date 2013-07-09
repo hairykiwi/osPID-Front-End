@@ -1,0 +1,10 @@
+All_Profs	//(X = N/A) PID = 3.4 | X | X | OP WINDOW = 5.0 Sec | Tested with Elgento 9 litre 800W two-bar oven - from ASDA online UK
+3, 40, 0	//Step Setpoint to 40 degC, wait 0 seconds
+2, 0, 0		//Wait for PID Input to cross Setpoint
+4, 5, 20    //Step-Output to 5% for 20 seconds
+5, 90, 80   //Step-Output to 90% until crossing 80 degC
+127, 0, 1	//buzz for 1 seconds
+5, 90, 100  //Step-Output to 90% until crossing 100 degC
+5, 0, 95	//Step-Output to 0% until crossing 95 degC
+127, 0, 1	//buzz for 1 seconds
+3, 0, 0		//Step Setpoint to 0

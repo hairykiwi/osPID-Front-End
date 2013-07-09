@@ -1,3 +1,7 @@
+/***********************************************
+* Edited Source: This is for hairykiwi osPID Firmware v1.61g etc
+***********************************************/
+
 RadioButton protIr1, protIr2, protIr3, protIr4;
 Textfield protItxt1, protItxt2, protItxt3, protItxt4;
 
@@ -99,7 +103,7 @@ void CreateUI(String cardID, String tab, int top)
 
     addToRadioButton(r3,"Onboard Relay",1);
     addToRadioButton(r3,"Digital Output",2);
-    r3.getItem(0).setState(true);
+    r3.getItem(1).setState(true); // Set default to digital output
 
     controlP5.addTextlabel("spec2","Relay Output Window: ", configLeft,top+56);  
     controlP5.addTextlabel("sec","Seconds = ", configLeft+5,top+76);  

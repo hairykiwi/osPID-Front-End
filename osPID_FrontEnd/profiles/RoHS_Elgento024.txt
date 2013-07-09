@@ -1,0 +1,6 @@
+Elg-024		//(X = N/A) PID = X | X | X | OP WINDOW = 5.0 Sec | ROHS profile for Elgento 9 litre 800W two-bar oven - from ASDA online UK
+5, 100, 140	//Step Output to 100% until crossing 140degC
+5, 50, 190	//Step Output to 50% until crossing 190degC
+5, 100, 243	//Step Output to 100% until crossing 243degC
+3, 0, 0		//Step Setpoint to 0
+127, 0, 5	//buzz for 5 seconds (Open door at end of buzzing.)

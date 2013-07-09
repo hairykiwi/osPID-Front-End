@@ -1,3 +1,7 @@
+/***********************************************
+* Edited Source: This is for hairykiwi osPID Firmware v1.61g etc
+***********************************************/
+
 int pSteps=15;
 
 class Profile
@@ -95,7 +99,7 @@ Profile CreateProfile(String filename)
           ret.times[count-1] = time;
           if(time<0)ret.errorMsg = "Time cannot be negative";
           else if(t==2 && v<0)ret.errorMsg = "Wait Band cannot be negative";
-          else if(t<0 || (t>3 && t!=127))
+          else if(t<0 || (t>5 && t!=127))
           {
             ret.errorMsg = "Unrecognized step type";
           }
@@ -126,7 +130,7 @@ textFont(AxisFont);
   for(int i=0;i<pSteps;i++)
   {
     byte t = p.types[i];
-    if(t==1 || t== 3)
+    if(t==1 || t== 3 || t == 4 || t == 5)
     {
       float v = p.vals[i];
       if(v<minimum)minimum=v;
@@ -142,7 +146,8 @@ textFont(AxisFont);
   float bottom = y + h;
   
   strokeWeight(4);
-  float lasty = bottom-h/2;
+  //float lasty = bottom-h/2;
+  float lasty = bottom;
   for(int i=0;i<pSteps;i++)
   {
 
@@ -165,7 +170,7 @@ textFont(AxisFont);
       line(x1,lasty, x2,lasty);        
       strokeWeight(4);
     }
-    else if(t==3)//Step
+    else if(t==3 || t==4 || t==5) //Step || Step-Output_period || Step-Output_until_crossing_temp
     {
       line(x1,lasty, x1,v);
       line(x1,v, x2,v);
@@ -202,24 +207,34 @@ break;
     }
     if(t==1)//Ramp
     {
-      s1 = "Ramp SP to " + v; 
+      s1 = "Ramp SP to " + v + "°C"; 
       s2 = "Over " + p.times[i] + " Sec";
     }
     else if (t==2 && v==0) //Wait cross
     {
       s1 = "Wait until Input"; 
-      s2 = "Crosses " + lastv;
+      s2 = "Crosses " + lastv + "°C";
     }
     else if(t==2)
     {
       s1 = "Wait until Input is"; 
-      s2="Within "+v+ " of " + lastv;
+      s2="Within "+v+ " of " + lastv + "°C";
       s3= "for "+p.times[i] +" Sec";
     }
     else if(t==3)
     {
-      s1 = "Step SP to "+ v +" then"; 
+      s1 = "Step SP to "+ v + "°C" +" then"; 
       s2="wait " + p.times[i] + " Sec";
+    }
+    else if(t==4)
+    {
+      s1 = "Step Output to "+ v +"% then"; 
+      s2="wait " + p.times[i] + " Sec";
+    }
+    else if(t==5)
+    {
+      s1 = "Step Output to "+ v +"% then"; 
+      s2="wait until Input crosses " + p.times[i] + "°C"; //This is a hack - uses time variable as a temp (setpoint) variable.
     }
     else if(t==127)
     {
