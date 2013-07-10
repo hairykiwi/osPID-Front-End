@@ -187,7 +187,7 @@ void populateProfileTab(){
 }
 
 void addToRadioButton(RadioButton theRadioButton, String theName, int theValue ) {
-  RadioButton t = theRadioButton.addItem(theName,theValue);
+  Toggle t = theRadioButton.addItem(theName,theValue);
   t.captionLabel().setColorBackground(color(80));
   t.captionLabel().style().movePadding(2,0,-1,2);
   t.captionLabel().style().moveMargin(-2,0,0,-3);
