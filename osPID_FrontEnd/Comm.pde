@@ -354,11 +354,12 @@ void serialEvent(Serial myPort)
         "Running Profile", "","Step: "+s[1]+", Stepped Output", float(trim(s[3]))/1000+" Sec remaining"            };
       break;
     case 5: //step-output-until_crosing_temp
- //     float helper_a = float(trim(s[4]));
- //     TODO: 'Time in Band' value shows cumulative time since power on
+      float distAway = float(trim(s[3])) - Input;
+      //float helper_a = float(trim(s[4]));
+      //TODO: 'Time in Band' value shows cumulative time since power on
       msg = new String[]{
-        "Running Profile", "","Step: "+s[1]+", Stepped Output","Distance Away= "+s[3], "Waiting for cross" };
-      // TESTING - last array element above: "Distance Away=" +  "S2: "+ s[2]+" S3: " + s[3]+" S4: " + s[4]            };
+        "Running Profile", "","Step: "+s[1]+", Stepped Output","Distance Away= "+distAway, "Waiting for cross" };
+
       break;
 
     default:
