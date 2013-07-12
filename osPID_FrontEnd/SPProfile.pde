@@ -1,5 +1,5 @@
 /***********************************************
-* Edited Source: This is for hairykiwi osPID Firmware v1.61g etc
+* Edited Source: This is for hairykiwi osPID Firmware v1.61j etc
 ***********************************************/
 
 int pSteps=15;
@@ -130,9 +130,15 @@ textFont(AxisFont);
   for(int i=0;i<pSteps;i++)
   {
     byte t = p.types[i];
-    if(t==1 || t== 3 || t == 4 || t == 5)
+    if(t==1 || t== 3 || t == 4)
     {
       float v = p.vals[i];
+      if(v<minimum)minimum=v;
+      if(v>maximum)maximum=v;
+    }
+   else if(t == 5)
+    {
+      float v = p.times[i]; //Type 5 'crossing temp' is stored in the time variable
       if(v<minimum)minimum=v;
       if(v>maximum)maximum=v;
     }
@@ -155,7 +161,9 @@ textFont(AxisFont);
     else stroke(255);
     
     byte t = p.types[i];
+    float typeVtemp = p.times[i]; //Type 5 'crossing temp' is stored in the time variable
     float v = bottom - (p.vals[i]-minimum)/(maximum-minimum) * h;
+    float typeVv = bottom - (p.times[i]-minimum)/(maximum-minimum) * h; //Type 5 'crossing temp' is stored in the time variable
     float x1 = x+step*(float)i;
     float x2 = x+step*(float)(i+1);
     if(t==1)//Ramp
@@ -170,12 +178,19 @@ textFont(AxisFont);
       line(x1,lasty, x2,lasty);        
       strokeWeight(4);
     }
-    else if(t==3 || t==4 || t==5) //Step || Step-Output_period || Step-Output_until_crossing_temp
+    else if(t==3 || t==4) //Step || Step-Output_period
     {
       line(x1,lasty, x1,v);
       line(x1,v, x2,v);
       lasty=v;
       text(p.vals[i],x1,lasty-4);
+    }
+    else if(t==5) //Step-Output_until_crossing_temp
+    {
+      line(x1,lasty, x1,typeVv);
+      line(x1,typeVv, x2,typeVv);
+      lasty=typeVv;
+      text(typeVtemp,x1,lasty-4);
     }
     else if(t==127)//Buzz
     {
@@ -199,6 +214,7 @@ textFont(AxisFont);
   {
     byte t = p.types[i];
     float v = p.vals[i];
+    float typeVtemp = p.times[i]; //Type 5 'crossing temp' is stored in the time variable
     String s1="",s2="", s3="";
 
     if(t==0)//end
@@ -234,7 +250,7 @@ break;
     else if(t==5)
     {
       s1 = "Step Output to "+ v +"% then"; 
-      s2="wait until Input crosses " + p.times[i] + "°C"; //This is a hack - uses time variable as a temp (setpoint) variable.
+      s2="wait until Input crosses " + typeVtemp + "°C"; //Type 5 'crossing temp' is stored in the time variable
     }
     else if(t==127)
     {
