@@ -178,12 +178,19 @@ textFont(AxisFont);
       line(x1,lasty, x2,lasty);        
       strokeWeight(4);
     }
-    else if(t==3 || t==4) //Step || Step-Output_period
+    else if(t==3) //Step
     {
       line(x1,lasty, x1,v);
       line(x1,v, x2,v);
       lasty=v;
       text(p.vals[i],x1,lasty-4);
+    }
+    else if(t==4) //Step-Output_period
+    {
+      //line(x1,lasty, x1,v);
+      //line(x1,v, x2,v);
+      //lasty=v;
+      //text(p.vals[i],x1,lasty-4);
     }
     else if(t==5) //Step-Output_until_crossing_temp
     {
