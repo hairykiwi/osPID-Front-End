@@ -195,8 +195,10 @@ textFont(AxisFont);
     else if(t==5) //Step-Output_until_crossing_temp
     {
       line(x1,lasty, x1,typeVv);
+      strokeWeight(8);
       line(x1,typeVv, x2,typeVv);
       lasty=typeVv;
+      strokeWeight(4);
       text(typeVtemp,x1,lasty-4);
     }
     else if(t==127)//Buzz
